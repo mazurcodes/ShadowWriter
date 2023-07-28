@@ -1,5 +1,5 @@
+'use client';
 import { ReactNode, useState } from 'react';
-import styles from './index.module.scss';
 import Image from 'next/image';
 import ArrowIcon from '@/assets/ArrowIcon.svg';
 
@@ -10,18 +10,20 @@ type DropdownSectionProps = {
 };
 
 const DropdownSection = ({ children, label, open }: DropdownSectionProps) => {
-  const [isDropped, setDropped] = useState(open ? true : false);
+  const [isDropped, setDropped] = useState(open);
 
   return (
-    <label htmlFor="description" className={styles.label}>
+    <label htmlFor="description" className="w-80">
       <div
-        className={styles.extendedLabel}
+        className="flex items-center justify-between pb-3"
         onClick={() => setDropped(!isDropped)}
       >
-        <p>{label}</p>
+        <p className="text-zinc-300">{label}</p>
         <Image
           src={ArrowIcon}
-          className={isDropped ? styles.arrowIconDown : ''}
+          className={isDropped ? 'rotate-90' : ''}
+          width={7}
+          height={7}
           alt="arrow right icon"
         />
       </div>
