@@ -1,3 +1,7 @@
+/**
+ * This module provides client for working with OpenAI Api.
+ * @module ClientOpenAIApi
+ */
 import { Configuration, OpenAIApi } from 'openai';
 
 const configuration = new Configuration({
