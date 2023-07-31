@@ -2,19 +2,20 @@
 import { useState } from 'react';
 
 type TextFieldProps = {
+  name: string;
   label?: string;
   readonly?: boolean;
 };
 
-function TextField({ label, readonly = false }: TextFieldProps) {
+function TextField({ label, name, readonly = false }: TextFieldProps) {
   const [projectDescription, setProjectDescription] = useState('');
 
   return (
-    <label htmlFor="description">
+    <label htmlFor={name}>
       {label && <p className="text-zinc-300 pb-3">{label}</p>}
       <textarea
         autoFocus
-        name="description"
+        name={name}
         placeholder='like "This project is about the crypto exchange for the tybetan people"'
         onChange={(event) => setProjectDescription(event.target.value)}
         value={projectDescription}
