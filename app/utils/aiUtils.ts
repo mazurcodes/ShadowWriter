@@ -8,8 +8,7 @@ import openai from '@/openai/client';
 type CreateCompletionProps = {
   nameOfProject: string;
   websiteContent: string;
-  personsInConversation: number;
-  namesOfParticipants: string[];
+  namesOfParticipants: string;
   lengthOfTheReview: string;
 };
 
@@ -23,16 +22,16 @@ export async function createCompletion(data: CreateCompletionProps) {
   });
 }
 
-function createPrompt({
+export function createPrompt({
   nameOfProject,
   websiteContent,
-  personsInConversation,
   namesOfParticipants,
   lengthOfTheReview,
 }: CreateCompletionProps) {
   const names = mergePersonsNames(namesOfParticipants);
+  const personsInConversation = countPersonsInConversation(namesOfParticipants);
 
-  return `Create a script for an engaging ${lengthOfTheReview} minute YouTube video about the ${nameOfProject} cryptocurrency project. The video will feature a dynamic ${personsInConversation} person(s), ${names}, exploring the contents of the project's website provided below while providing insightful commentary. They will not be visible on the screen, with only the web page being recorded.
+  return `Create a script for an engaging ${lengthOfTheReview} minute YouTube video about the ${nameOfProject} cryptocurrency project. The video will feature a dynamic ${personsInConversation} person(s), ${names}, exploring the contents of the project's website provided below while providing insightful commentary. There will not be visible people on the screen, with only the web page being recorded.
 
   In this video, ${names} will take viewers on a captivating journey through the world of ${nameOfProject} project. Starting with a compelling hook, they will capture viewers' attention by highlighting a surprising statistic or sharing a thought-provoking question related to the project.
   
@@ -55,15 +54,29 @@ function createPrompt({
  * Helper function that will merge the array names of the persons in the conversation in a single sting.
  * @param {string[]} names - The input array of names.
  */
-function mergePersonsNames(names: string[]) {
-  if (names.length === 1) {
+function mergePersonsNames(names: string) {
+  if (!names) return;
+  const namesArr = names.split(',');
+  const namesArrTrimmed = namesArr.map((name) => name.trim());
+
+  // If there is only one name, return it.
+  if (namesArrTrimmed.length === 1) {
     return names[0];
   }
-  if (names.length === 2) {
-    return names.join(' and ');
+
+  // If there is only two names, return them in a single string.
+  if (namesArrTrimmed.length === 2) {
+    return namesArrTrimmed.join(' and ');
   }
 
-  const lastPersonName = names[names.length - 1];
-  const namesWithoutLastPerson = names.slice(0, names.length - 1);
+  // If there are more than two names, return the last name and the names in the middle.
+  const lastPersonName = namesArrTrimmed[namesArrTrimmed.length - 1];
+  const namesWithoutLastPerson = namesArrTrimmed.slice(0, names.length - 1);
   return namesWithoutLastPerson.join(', ') + ' and ' + lastPersonName;
+}
+
+function countPersonsInConversation(names: string) {
+  if (!names) return;
+  const namesArr = names.split(',');
+  return namesArr.length;
 }
