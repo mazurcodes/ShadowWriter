@@ -13,12 +13,12 @@ const DropdownSection = ({ children, label, open }: DropdownSectionProps) => {
   const [isDropped, setDropped] = useState(open);
 
   return (
-    <label htmlFor="description" className="w-80">
+    <label htmlFor="description" className="w-80 mt-6">
       <div
         className="flex items-center justify-between pb-3"
         onClick={() => setDropped(!isDropped)}
       >
-        <p className="text-zinc-300">{label}</p>
+        <p className="text-zinc-400 text-sm">{label}</p>
         <Image
           src={ArrowIcon}
           className={isDropped ? 'rotate-90' : ''}

@@ -34,20 +34,20 @@ export default function Home() {
   };
 
   return (
-    <main className="flex flex-col items-center w-full h-screen bg-zinc-900 pt-8">
+    <main className="flex flex-col items-center min-h-screen w-full bg-zinc-900 pt-8">
       <form
         className="flex flex-col items-center"
         onSubmit={handleSubmit(onSubmit)}
       >
         <label htmlFor="nameOfProject">
-          <p className="text-zinc-300 pb-3">Project name</p>
+          <p className="text-zinc-400 pb-3 mt-6">Project name</p>
           <input
             {...register('nameOfProject', { required: true })}
             className="w-80 bg-zinc-800 p-3 text-zinc-300 resize-none "
           />
         </label>
         <label htmlFor="namesOfParticipants">
-          <p className="text-zinc-300 pb-3">
+          <p className="text-zinc-400 pb-3 mt-6">
             Names of participants separeted by " , "
           </p>
           <input
@@ -57,7 +57,9 @@ export default function Home() {
           />
         </label>
         <label htmlFor="lengthOfTheReview">
-          <p className="text-zinc-300 pb-3">Length of the review in minutes.</p>
+          <p className="text-zinc-400 pb-3 mt-6">
+            Length of the review in minutes.
+          </p>
           <input
             {...register('lengthOfTheReview', { required: true })}
             placeholder="10"
@@ -66,7 +68,7 @@ export default function Home() {
         </label>
 
         <label htmlFor="websiteContent">
-          <p className="text-zinc-300 pb-3">Page content</p>
+          <p className="text-zinc-400 pb-3 mt-6">Page content</p>
           <textarea
             {...register('websiteContent', { required: true })}
             className="w-80 bg-zinc-800 p-3 text-zinc-300 resize-none "
@@ -85,7 +87,7 @@ export default function Home() {
 
         <button
           type="submit"
-          className="bg-zinc-800 border border-zinc-500 hover:bg-zinc-700 text-zinc-300 font-bold h-12 w-80"
+          className="bg-zinc-800 border border-zinc-500 hover:bg-zinc-700 text-zinc-300 font-bold h-12 w-80 my-6"
         >
           Generate
         </button>
