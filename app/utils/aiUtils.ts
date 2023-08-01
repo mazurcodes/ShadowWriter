@@ -10,7 +10,7 @@ export type CreateCompletionProps = {
 export async function createCompletion(data: CreateCompletionProps) {
   const prompt = createPrompt(data);
   return await openai.createChatCompletion({
-    model: 'gpt-3.5-turbo-16k',
+    model: 'gpt-4',
     messages: [
       { role: 'system', content: 'You are a professional script writer' },
       { role: 'user', content: prompt },
