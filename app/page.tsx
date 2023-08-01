@@ -22,7 +22,6 @@ export default function Home() {
     watch,
     formState: { errors },
   } = useForm<ProjectFormData>();
-  const paragraphRef = useRef<HTMLParagraphElement>(null);
 
   const formFields = watch();
 
@@ -33,7 +32,6 @@ export default function Home() {
 
   useEffect(() => {
     const paragraphs = completion.split('\n');
-    console.log(paragraphs);
     setParagraphList(paragraphs);
   }, [completion]);
 
@@ -109,7 +107,7 @@ export default function Home() {
         </button>
       </form>
       <article className="bg-zinc-800 mt-10 w-[70%]">
-        <h2>Completion:</h2>
+        <h2 className="text-zinc-400">Script:</h2>
         {paragraphList.map((paragraph) => (
           <p className="text-zinc-300 p-3">{paragraph}</p>
         ))}
