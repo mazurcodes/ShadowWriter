@@ -29,9 +29,17 @@ export default function Home() {
     setPrompt(prompt);
   }, [formFields]);
 
-  const onSubmit = (data: ProjectFormData) => {
-    console.log(data);
-  };
+  async function onSubmit(data: ProjectFormData) {
+    if (!data) return;
+    const completionData = await fetch('/api/completion', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    setCompletion(await completionData.json());
+  }
 
   return (
     <main className="flex flex-col items-center min-h-screen w-full bg-zinc-900 pt-8">
@@ -40,14 +48,14 @@ export default function Home() {
         onSubmit={handleSubmit(onSubmit)}
       >
         <label htmlFor="nameOfProject">
-          <p className="text-zinc-400 pb-3 mt-6">Project name</p>
+          <p className="text-zinc-400 pb-3 mt-10 text-sm">Project name</p>
           <input
             {...register('nameOfProject', { required: true })}
             className="w-80 bg-zinc-800 p-3 text-zinc-300 resize-none "
           />
         </label>
         <label htmlFor="namesOfParticipants">
-          <p className="text-zinc-400 pb-3 mt-6">
+          <p className="text-zinc-400 pb-3 mt-10 text-sm">
             Names of participants separeted by " , "
           </p>
           <input
@@ -57,7 +65,7 @@ export default function Home() {
           />
         </label>
         <label htmlFor="lengthOfTheReview">
-          <p className="text-zinc-400 pb-3 mt-6">
+          <p className="text-zinc-400 pb-3 mt-10 text-sm">
             Length of the review in minutes.
           </p>
           <input
@@ -68,7 +76,7 @@ export default function Home() {
         </label>
 
         <label htmlFor="websiteContent">
-          <p className="text-zinc-400 pb-3 mt-6">Page content</p>
+          <p className="text-zinc-400 pb-3 mt-10 text-sm">Page content</p>
           <textarea
             {...register('websiteContent', { required: true })}
             className="w-80 bg-zinc-800 p-3 text-zinc-300 resize-none "
@@ -87,12 +95,12 @@ export default function Home() {
 
         <button
           type="submit"
-          className="bg-zinc-800 border border-zinc-500 hover:bg-zinc-700 text-zinc-300 font-bold h-12 w-80 my-6"
+          className="bg-zinc-800 border border-zinc-500 hover:bg-zinc-700 text-zinc-300 font-bold h-12 w-80 my-10"
         >
           Generate
         </button>
       </form>
-      <article>{completion}</article>
+      <textarea name="" id="" cols={100} rows={50} value={completion} />
     </main>
   );
 }
