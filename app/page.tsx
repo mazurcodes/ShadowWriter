@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import DropdownSection from './components/DropdownSection';
 import { useForm } from 'react-hook-form';
 import { createPrompt } from './utils/aiUtils';
@@ -14,6 +14,7 @@ type ProjectFormData = {
 
 export default function Home() {
   const [prompt, setPrompt] = useState('');
+  const [paragraphList, setParagraphList] = useState<string[]>([]);
   const [completion, setCompletion] = useState('');
   const {
     register,
@@ -21,6 +22,7 @@ export default function Home() {
     watch,
     formState: { errors },
   } = useForm<ProjectFormData>();
+  const paragraphRef = useRef<HTMLParagraphElement>(null);
 
   const formFields = watch();
 
@@ -28,6 +30,12 @@ export default function Home() {
     const prompt = createPrompt(formFields);
     setPrompt(prompt);
   }, [formFields]);
+
+  useEffect(() => {
+    const paragraphs = completion.split('\n');
+    console.log(paragraphs);
+    setParagraphList(paragraphs);
+  }, [completion]);
 
   async function onSubmit(data: ProjectFormData) {
     if (!data) return;
@@ -100,7 +108,12 @@ export default function Home() {
           Generate
         </button>
       </form>
-      <textarea name="" id="" cols={100} rows={50} value={completion} />
+      <article className="bg-zinc-800 mt-10 w-[70%]">
+        <h2>Completion:</h2>
+        {paragraphList.map((paragraph) => (
+          <p className="text-zinc-300 p-3">{paragraph}</p>
+        ))}
+      </article>
     </main>
   );
 }
