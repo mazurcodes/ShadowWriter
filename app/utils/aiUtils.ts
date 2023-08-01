@@ -1,11 +1,6 @@
-/**
- * This module provides utility functions for working with OpenAI.
- * @module ArrayUtils
- */
-
 import openai from '@/openai/client';
 
-type CreateCompletionProps = {
+export type CreateCompletionProps = {
   nameOfProject: string;
   websiteContent: string;
   namesOfParticipants: string;
@@ -14,11 +9,13 @@ type CreateCompletionProps = {
 
 export async function createCompletion(data: CreateCompletionProps) {
   const prompt = createPrompt(data);
-  return await openai.createCompletion({
-    model: 'gpt-4-32k',
-    prompt,
-    max_tokens: 32000,
-    temperature: 1.0,
+  return await openai.createChatCompletion({
+    model: 'gpt-3.5-turbo-16k',
+    messages: [
+      { role: 'system', content: 'You are a professional script writer' },
+      { role: 'user', content: prompt },
+    ],
+    temperature: 0,
   });
 }
 
