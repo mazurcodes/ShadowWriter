@@ -28,22 +28,25 @@ export function createPrompt({
   const names = mergePersonsNames(namesOfParticipants);
   const personsInConversation = countPersonsInConversation(namesOfParticipants);
 
-  return `Create a script for an engaging ${lengthOfTheReview} minute YouTube video about the ${nameOfProject} cryptocurrency project. The video will feature a dynamic ${personsInConversation} person(s), ${names}, exploring the contents of the project's website provided below while providing insightful commentary. There will not be visible people on the screen, with only the web page being recorded.
+  return `Create a ${lengthOfTheReview} characters script for an engaging YouTube video about the ${nameOfProject} cryptocurrency project. The video will feature a dynamic ${personsInConversation} person(s), ${names}, exploring the contents of the project's website provided below while providing insightful commentary. There will not be visible people on the screen, with only the web page being recorded.
 
   In this video, ${names} will take viewers on a captivating journey through the world of ${nameOfProject} project. Starting with a compelling hook, they will capture viewers' attention by highlighting a surprising statistic or sharing a thought-provoking question related to the project.
-  
-  Throughout the video, ${names} will enhance the viewer's experience and draw attention to specific elements on the web page. They will strike a balance between sharing essential information about the project and keeping the script engaging and accessible, avoiding overwhelming technical jargon.
-  
+    
+  Throughout the video, ${names} will enhance the viewer's experience and draw attention to specific elements on the web page. They will balance between sharing essential information about the project and keeping the script engaging and accessible, avoiding overwhelming technical jargon.
+    
   To illustrate the project's real-world impact, ${names} will incorporate exciting examples and use cases. They will explore how ${nameOfProject} cryptocurrency can solve common problems and bring value to various industries, making it relatable and tangible for the viewers.
-  
+    
   ${names} will foster interaction and a sense of camaraderie through their lively discussion. They will ask each other questions, share their opinions, and playfully challenge one another's viewpoints, creating an engaging and dynamic atmosphere.
-  
+    
   The script will be written in a conversational tone, allowing ${names}'s personalities to shine through. It will feel like a natural discussion between two knowledgeable individuals, making it easy for viewers to connect with the presenters and the content.
+    
+  Toward the end of the video, ${names} will wrap up the discussion and provide a clear call-to-action. They will encourage viewers to explore the ${nameOfProject} cryptocurrency project further, visit the website for more information, and consider joining the community or subscribing for future updates on the channel.
   
-  Towards the end of the video, ${names} will wrap up the discussion and provide a clear call-to-action. They will encourage viewers to explore the ${nameOfProject} cryptocurrency project further, visit the website for more information, and consider joining the community or subscribing for future updates on the channel.
-
-  Content of the project's website:
-  ${websiteContent}
+  At the end of the video add information that presenters, ${names} are not financial advisors and this video is for informational purposes only
+  
+    Content of the project's website:
+    ${websiteContent}
+  
   `;
 }
 
