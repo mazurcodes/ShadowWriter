@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import DropdownSection from './components/DropdownSection';
 import { useForm } from 'react-hook-form';
 import { createPrompt } from './utils/aiUtils';
@@ -72,7 +72,7 @@ export default function Home() {
         </label>
         <label htmlFor="lengthOfTheReview">
           <p className="text-zinc-400 pb-3 mt-10 text-sm">
-            Length of the review in minutes.
+            Length of the review in characters.
           </p>
           <input
             {...register('lengthOfTheReview', { required: true })}
