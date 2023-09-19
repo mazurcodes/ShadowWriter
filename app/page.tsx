@@ -10,6 +10,7 @@ type ProjectFormData = {
   namesOfParticipants: string;
   lengthOfTheReview: string;
   customPrompt?: string;
+  partSelect: 'start' | 'section' | 'end';
 };
 
 export default function Home() {
@@ -79,6 +80,19 @@ export default function Home() {
             placeholder="10"
             className="w-80 bg-zinc-800 p-3 text-zinc-300 resize-none "
           />
+        </label>
+        <label htmlFor="partSelect">
+          <p>Part of the review</p>
+          <select
+            {...register('partSelect')}
+            className="w-80 bg-zinc-800 p-3 text-zinc-300 resize-none "
+          >
+            <option value="start" selected>
+              Start
+            </option>
+            <option value="section">Section</option>
+            <option value="end">End</option>
+          </select>
         </label>
 
         <label htmlFor="websiteContent">
