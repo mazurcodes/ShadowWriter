@@ -4,7 +4,8 @@ export type CreateCompletionProps = {
   nameOfProject: string;
   websiteContent: string;
   namesOfParticipants: string;
-  lengthOfTheReview: string;
+  charactersCount: string;
+  partSelect: 'start' | 'section' | 'end';
 };
 
 export async function createCompletion(data: CreateCompletionProps) {
@@ -23,30 +24,39 @@ export function createPrompt({
   nameOfProject,
   websiteContent,
   namesOfParticipants,
-  lengthOfTheReview,
+  charactersCount,
+  partSelect,
 }: CreateCompletionProps) {
   const names = mergePersonsNames(namesOfParticipants);
   const personsInConversation = countPersonsInConversation(namesOfParticipants);
 
-  return `Create a ${lengthOfTheReview} characters script for an engaging YouTube video about the ${nameOfProject} cryptocurrency project. The video will feature a dynamic ${personsInConversation} person(s), ${names}, exploring the contents of the project's website provided below while providing insightful commentary. There will not be visible people on the screen, with only the web page being recorded.
+  if (partSelect === 'start')
+    return `
+  1. Create a ${charactersCount} character script for an engaging YouTube video introduction to the Crypto Ranger channel and its dynamic reviewers, ${names}. The video will set the stage for their exploration of the ${nameOfProject} cryptocurrency project's website provided below.
+  2. ${names} will start with a compelling hook, capturing viewers' attention with a surprising statistic or a thought-provoking question related to the project.
+  3. The script will establish a conversational tone, allowing ${names}'s personalities to shine through and making it easy for viewers to connect with the presenters and the upcoming content.
+  4. There will not be visible people on the screen, with only the web page being recorded.
+  
+  Website content:
+  ${websiteContent}`;
+  if (partSelect === 'section')
+    return `
+  1. Create a ${charactersCount} character script for the conversation between ${personsInConversation} crypto enthusiast(s). In this script, those crypto enthusiasts named ${names} will delve into the contents of the section of the ${nameOfProject} cryptocurrency project's website provided below. 
+  2. ${names} will balance sharing essential information about the project with keeping the script engaging and accessible, avoiding overwhelming technical jargon.
+  3. Focus on exploring some of the key elements of the provided content showcasing the project's uniqueness and benefits.
+  4. ${names} will incorporate exciting examples and use cases to illustrate the project's real-world impact, making it relatable and tangible for viewers.
+  5. The script will establish a conversational tone, allowing ${names}'s personalities to shine through and making it easy for viewers to connect with the presenters and the upcoming content.
+  
+  Website content:
+  ${websiteContent}
+`;
+  return `
+  1. Write a ${charactersCount} character script for the conclusion of the YouTube video, where ${names} will wrap up the discussion about the ${nameOfProject} cryptocurrency project and provide a clear call-to-action.
+  2. ${names} will encourage viewers to explore the project further, visit the website for more information, and consider joining the community or subscribing for future updates on the Crypto Ranger channel.
+  3. It's crucial to include a disclaimer at the end, emphasizing that ${names} are not financial advisors, and the video is for informational purposes only.
 
-  In this video, ${names} will take viewers on a captivating journey through the world of ${nameOfProject} project. Starting with a compelling hook, they will capture viewers' attention by highlighting a surprising statistic or sharing a thought-provoking question related to the project.
-    
-  Throughout the video, ${names} will enhance the viewer's experience and draw attention to specific elements on the web page. They will balance between sharing essential information about the project and keeping the script engaging and accessible, avoiding overwhelming technical jargon.
-    
-  To illustrate the project's real-world impact, ${names} will incorporate exciting examples and use cases. They will explore how ${nameOfProject} cryptocurrency can solve common problems and bring value to various industries, making it relatable and tangible for the viewers.
-    
-  ${names} will foster interaction and a sense of camaraderie through their lively discussion. They will ask each other questions, share their opinions, and playfully challenge one another's viewpoints, creating an engaging and dynamic atmosphere.
-    
-  The script will be written in a conversational tone, allowing ${names}'s personalities to shine through. It will feel like a natural discussion between two knowledgeable individuals, making it easy for viewers to connect with the presenters and the content.
-    
-  Toward the end of the video, ${names} will wrap up the discussion and provide a clear call-to-action. They will encourage viewers to explore the ${nameOfProject} cryptocurrency project further, visit the website for more information, and consider joining the community or subscribing for future updates on the channel.
-  
-  At the end of the video add information that presenters, ${names} are not financial advisors and this video is for informational purposes only
-  
-    Content of the project's website:
-    ${websiteContent}
-  
+  Website content:
+  ${websiteContent}
   `;
 }
 

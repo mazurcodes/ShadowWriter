@@ -8,7 +8,7 @@ type ProjectFormData = {
   nameOfProject: string;
   websiteContent: string;
   namesOfParticipants: string;
-  lengthOfTheReview: string;
+  charactersCount: string;
   customPrompt?: string;
   partSelect: 'start' | 'section' | 'end';
 };
@@ -76,7 +76,7 @@ export default function Home() {
             Length of the review in characters.
           </p>
           <input
-            {...register('lengthOfTheReview', { required: true })}
+            {...register('charactersCount', { required: true })}
             placeholder="10"
             className="w-80 bg-zinc-800 p-3 text-zinc-300 resize-none "
           />
